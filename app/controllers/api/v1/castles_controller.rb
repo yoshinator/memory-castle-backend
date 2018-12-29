@@ -1,6 +1,6 @@
 class Api::V1::CastlesController < ApplicationController
 
-  before_action :find_castle, only: [:show, :update]
+  before_action :find_castle, only: [:show, :update, :destroy]
 
   def index 
     @castles = Castle.all
@@ -20,7 +20,6 @@ class Api::V1::CastlesController < ApplicationController
     end
   end
 
-
   def update
     @castle.update(castle_params)
     if @castle.save
@@ -30,11 +29,16 @@ class Api::V1::CastlesController < ApplicationController
     end
   end
 
+  def destroy
+    @castle.destroy
+    render json: {action: "deleted"}, status: :accepted
+  end
+
 
   private
 
   def castle_params
-    params.permit(:id, :name, :user_id)
+    params.permit(:id, :name, :user_id, :image)
   end 
 
   def find_castle
