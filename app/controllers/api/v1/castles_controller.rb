@@ -30,8 +30,9 @@ class Api::V1::CastlesController < ApplicationController
   end
 
   def destroy
+    @user = User.find(@castle.user_id)
     @castle.destroy
-    render json: {action: "deleted"}, status: :accepted
+    render json: @user, status: :accepted
   end
 
 
