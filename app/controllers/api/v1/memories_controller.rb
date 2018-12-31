@@ -30,6 +30,11 @@ class Api::V1::MemoriesController < ApplicationController
     end
   end
 
+  def destroy
+    @castle = Castle.find(@memory.castle_id)
+    @memory.destroy
+    render json: @castle, status: :accepted
+  end
 
   private
 
