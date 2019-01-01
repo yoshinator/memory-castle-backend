@@ -1,6 +1,6 @@
 class Api::V1::MemoriesController < ApplicationController
 
-  before_action :find_memory, only: [:show, :update]
+  before_action :find_memory, only: [:show, :update, :destroy]
 
   def index 
     @memories = Memory.all
