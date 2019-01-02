@@ -30,6 +30,15 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # def sign_in
+  #   @user = User.find_by(:name params(:name))
+  #   if @user.valid?
+  #     render json: @user, status: :created
+  #   else
+  #     render json: { errors: @users.errors.full_messages }, status: :unprocessible_entity
+  #   end
+  # end 
+
 
   private
 
