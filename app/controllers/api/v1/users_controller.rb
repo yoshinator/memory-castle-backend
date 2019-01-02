@@ -11,12 +11,16 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, status: :accepted
   end
 
-   def create
-    @user = User.create(user_params)
-    if @user.valid?
-      render json: @user, status: :created
-    else
-      render json: { errors: @users.errors.full_messages }, status: :unprocessible_entity
+  def create
+    @user = User.find_by(user_params) 
+    if @user
+      render json: @user, status: :ok
+    else @user = User.create(user_params)
+      if @user.valid?
+        render json: @user, status: :created
+      else
+        render json: { errors: @users.errors.full_messages }, status: :unprocessible_entity
+      end
     end
   end
 
@@ -29,6 +33,10 @@ class Api::V1::UsersController < ApplicationController
       render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
     end
   end
+
+  def sign_in
+    "Action not needed at this time"
+  end 
 
 
   private
