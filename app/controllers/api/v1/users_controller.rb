@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
 
   before_action :find_user, only: [:show, :update]
+  skip_before_action :authorized, only: [:create]
 
   def index 
     @users = User.all
@@ -12,15 +13,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    @user = User.find_by(user_params) 
-    if @user
-      render json: @user, status: :ok
-    else @user = User.create(user_params)
-      if @user.valid?
-        render json: @user, status: :created
-      else
-        render json: { errors: @users.errors.full_messages }, status: :unprocessible_entity
-      end
+    @user = User.create(user_params)
+    if @user.valid?
+      @token = encode_token(user_id: @user.id)
+      render json: { user: @user, jwt: @token }, status: :created
+    else
+      render json: { error: 'failed to create user' }, status: :not_acceptable
     end
   end
 
