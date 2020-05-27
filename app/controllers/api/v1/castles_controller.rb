@@ -39,7 +39,7 @@ class Api::V1::CastlesController < ApplicationController
   private
 
   def castle_params
-    params.permit(:id, :name, :user_id, :image)
+    params.require(:castle).permit(:id, :name, :user_id, :image)
   end 
 
   def find_castle

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
-    before_action :authorized
+  include ::ActionController::Serialization
+  before_action :authorized
     
   def encode_token(payload)
     JWT.encode(payload, ENV['tokensalt'])
@@ -12,7 +13,7 @@ class ApplicationController < ActionController::API
  
   def decoded_token
     if auth_header
-      token = auth_header.split(' ')[1]
+      token = auth_header
       begin
         JWT.decode(token, ENV['tokensalt'], true, algorithm: 'HS256')
       rescue JWT::DecodeError

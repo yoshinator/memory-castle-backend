@@ -9,7 +9,7 @@ class Api::V1::UsersController < ApplicationController
   end 
 
   def show
-    render json: @user, status: :accepted
+    render json: @user,  status: :ok
   end
 
   def create
@@ -26,7 +26,7 @@ class Api::V1::UsersController < ApplicationController
   def update
     @user.update(user_params)
     if @user.save
-      render json: @user, status: :accepted
+      render json: @user, status: :ok
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessible_entity
     end
@@ -40,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:id, :name)
+    params.permit(:id, :name, :email, :password)
   end 
 
   def find_user
