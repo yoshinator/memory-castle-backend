@@ -21,6 +21,12 @@ local:
 #   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
 #   bucket: your_own_bucket
 
+google:
+  service: GCS
+  project: memory-castle
+  credentials: <%= ENV['GOOGLE_CREDENTIALS_MEMORY_CASTLE'] %>
+  bucket: 108909480064144056415
+
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:
 #   service: AzureStorage

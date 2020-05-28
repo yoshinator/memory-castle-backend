@@ -16,7 +16,8 @@ class Api::V1::CastlesController < ApplicationController
     if @castle.valid?
       render json: @castle, status: :created
     else
-      render json: { errors: @castles.errors.full_messages }, status: :unprocessible_entity
+      puts @castle.errors.full_messages
+      render json: { errors: @castle.errors.full_messages }, status: :unprocessible_entity
     end
   end
 
@@ -39,7 +40,7 @@ class Api::V1::CastlesController < ApplicationController
   private
 
   def castle_params
-    params.require(:castle).permit(:id, :name, :user_id, :image)
+    params.permit(:id, :name, :user_id, :image, :castle_image)
   end 
 
   def find_castle
